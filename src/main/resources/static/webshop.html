@@ -4,11 +4,32 @@
     <title>Java Web Starter Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="css/style.css"/>
+
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready( function ()
+    {
+        $.get("/shoppingcart", "" ,
+            function(data)
+            {
+                if(data)
+                {
+                    var len = data.items.length;
+                    if(len > 0)
+                    {
+                        $("#link").text("Shopping-Cart("+len +")");
+                    }
+                }
+           });
+    })
+</script>
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
 </head>
 <body>
-<a href="shoppingCart.html">Shopping-Cart</a>
+<a id = "link" href="shoppingCart.html">Shopping-Cart(0)</a>
 
 <table>
     <tr>

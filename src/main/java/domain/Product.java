@@ -44,8 +44,9 @@ public class Product
 
     /**
      * Constructor to instantiate product with:
-     * @param id unique id.
-     * @param name the name.
+     *
+     * @param id    unique id.
+     * @param name  the name.
      * @param image image link.
      */
     public Product(final String id, final String name, final String image)
@@ -57,8 +58,9 @@ public class Product
 
     /**
      * Constructor to instantiate product with:
-     * @param id unique id.
-     * @param name the name.
+     *
+     * @param id    unique id.
+     * @param name  the name.
      * @param image image link.
      */
     public Product(final String id, final String name, final String image, final BigDecimal price)

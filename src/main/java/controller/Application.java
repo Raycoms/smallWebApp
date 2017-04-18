@@ -1,10 +1,13 @@
-package Controller;
+package controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
+/**
+ * Main class used to launch the spring application and configure it.
+ */
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer
 {

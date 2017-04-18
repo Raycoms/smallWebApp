@@ -2,7 +2,6 @@ package domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import util.Log;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -50,6 +49,12 @@ public class ShoppingCart
         this.amount = amount;
     }
 
+    /**
+     * Add item to shopping cart.
+     * Increase quantity if exists already.
+     *
+     * @param newItem the item to add
+     */
     public void addItem(final CommerceItem newItem)
     {
         final List<CommerceItem> list = new ArrayList<>();
@@ -64,7 +69,7 @@ public class ShoppingCart
             list.add(item);
         }
 
-        if(!itemFound)
+        if (!itemFound)
         {
             list.add(newItem);
         }
@@ -72,6 +77,11 @@ public class ShoppingCart
         items = list.toArray(new CommerceItem[list.size()]);
     }
 
+    /**
+     * Iterate through all items and remove the item with the ingoing id.
+     *
+     * @param id item to remove.
+     */
     public void removeItem(final String id)
     {
         final List<CommerceItem> list = new ArrayList<>();
@@ -87,6 +97,7 @@ public class ShoppingCart
 
     /**
      * Creates unique itemId of commerceItem.
+     *
      * @return the id.
      */
     public String getNextItemId()

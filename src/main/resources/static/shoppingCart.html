@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Web Starter Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="css/style.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready( function ()
+    {
+        $.get("/shoppingcart", "" ,
+            function(data)
+            {
+                if(data)
+                {
+                    var len = data.items.length;
+                    var txt = "";
+                    var total = 0;
+                        if(len > 0)
+                        {
+                            for(var i=0;i<len;i++)
+                            {
+                                if(data.items[i].productId && data.items[i].quantity && data.items[i].amount)
+                                {
+                                    total += data.items[i].amount;
+                                    txt += "<tr> <td> <div class='pic"+data.items[i].productId+"'></div></td>";
+                                    txt += "<td> <div class='name"+data.items[i].productId+"'></div></td>"
+                                    txt += "<td>"+data.items[i].quantity+"</td><td>"+data.items[i].amount+"</td>"
+                                    txt += "<td><button class='del' data-id='"+ data.items[i].id + "'>delete</button> </td></tr>";
+                                }
+                            }
+                            if(txt != "")
+                            {
+                                txt+= "<tr><td>Total:" + total + "</td></tr>"
+                                $("#table").append(txt).removeClass("hidden");
+                            }
+                        }
+                    $.get("/products", "" ,
+                    function(data)
+                    {
+                        if(data)
+                        {
+                            var len = data.length;
+                            if(len > 0)
+                            {
+                                for(var i=0;i<len;i++)
+                                {
+                                    if(data[i].id && data[i].name && data[i].image)
+                                    {
+                                        var txt = "<img height='50' src = '" + data[i].image + "'/>";
+                                        $("div.pic" + data[i].id).append(txt);
+                                        $("div.name" + data[i].id).append(data[i].name);
+
+                                    }
+                                }
+                            }
+                            $("button.del").on("click", function()
+                            {
+                                console.log($(this).data('id'));
+                                $.ajax(
+                                {
+                                    url: "shoppingcart/items/" + $(this).data('id'),
+                                    type: 'DELETE'
+                                });
+                                location.reload();
+                            });
+                        }
+                    });
+
+                }
+           });
+    })
+</script>
+</head>
+<body>
+<table id="table" class="hidden">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+</table>
+<script type="text/javascript" src="script/javascriptShoppingCart.js"></script>
+</body>
+</html>

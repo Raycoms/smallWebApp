@@ -4,10 +4,16 @@
     <title>Java Web Starter Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="css/style.css"/>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript">
     $(document).ready( function ()
     {
+        $(".button-collapse").sideNav();
+
         $.get("/shoppingcart", "" ,
             function(data)
             {
@@ -26,7 +32,7 @@
                                     txt += "<tr> <td> <div class='pic"+data.items[i].productId+"'></div></td>";
                                     txt += "<td> <div class='name"+data.items[i].productId+"'></div></td>"
                                     txt += "<td>"+data.items[i].quantity+"</td><td>"+data.items[i].amount+"</td>"
-                                    txt += "<td><button class='del' data-id='"+ data.items[i].id + "'>delete</button> </td></tr>";
+                                    txt += "<td><button class='del waves-effect waves-light red' data-id='"+ data.items[i].id + "'>delete</button> </td></tr>";
                                 }
                             }
                             if(txt != "")
@@ -73,8 +79,16 @@
 </script>
 </head>
 <body>
-<a id = "link" href="webshop.html">Back to webshop</a>
-
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="index.html">Index</a></li>
+            <li><a href="webshop.html">Webshop</a></li>
+            <li><a href="shoppingCart.html">ShoppingCart</a></li>
+        </ul>
+    </div>
+</nav>
 <table id="table" class="hidden">
     <tr>
         <th>Image</th>
@@ -84,6 +98,7 @@
         <th></th>
     </tr>
 </table>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="script/javascriptShoppingCart.js"></script>
 </body>
 </html>

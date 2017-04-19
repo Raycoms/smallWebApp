@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import domain.CommerceItem;
 import domain.Product;
@@ -12,19 +12,26 @@ import util.Log;
 
 import java.math.BigDecimal;
 
+/**
+ * Request controller class.
+ * Controlling all incoming GET, POST and DELETE Requests.
+ */
 @Controller
 @RestController
 @ComponentScan("domain")
 @Scope("session")
 public class RequestController
 {
+    /**
+     * List of products. Static for this purpose.
+     */
     private static final Product[] products = new Product[]
-    {
-        new Product("0", "Blue Lightsaber", "images/blueLightSaber.png", new BigDecimal(100)),
-        new Product("1", "Magenta Lightsaber", "images/magentaLightSaber.png", new BigDecimal(200)),
-        new Product("2", "Red Lightsaber", "images/redLightSaber.png", new BigDecimal(500)),
-        new Product("3", "Lightsaber-kit", "images/LightSabers.png", new BigDecimal(5000))
-    };
+            {
+                    new Product("0", "Blue Lightsaber", "images/blueLightSaber.png", new BigDecimal(100)),
+                    new Product("1", "Magenta Lightsaber", "images/magentaLightSaber.png", new BigDecimal(200)),
+                    new Product("2", "Red Lightsaber", "images/redLightSaber.png", new BigDecimal(500)),
+                    new Product("3", "Lightsaber-kit", "images/LightSabers.png", new BigDecimal(5000))
+            };
 
     @Autowired
     private ShoppingCart cart = new ShoppingCart();
@@ -35,23 +42,38 @@ public class RequestController
         return "/index.html";
     }
 
+    /**
+     * Get request to get the shoppingCart.
+     *
+     * @return the shoppingCart.
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/shoppingcart")
     public ShoppingCart getShoppingCart()
     {
-        if(cart == null)
+        if (cart == null)
         {
             cart = new ShoppingCart();
         }
         return cart;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value ="/products")
+    /**
+     * Get request to get all products.
+     *
+     * @return array of products.
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/products")
     public Product[] getProducts()
     {
         return products;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value ="/shoppingcart/items/{id}")
+    /**
+     * Delete request to delete an item of the list.
+     *
+     * @param id the id of the item to delete.
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/shoppingcart/items/{id}")
     public void deleteItem(@PathVariable String id)
     {
         if (cart == null)
@@ -62,11 +84,20 @@ public class RequestController
         cart.removeItem(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value ="/shoppingcart/items")
-    public CommerceItem commerceItem(@RequestParam(value = "product_id", defaultValue = "1") final String id, @RequestParam(value = "quantity", defaultValue = "1") final String quantity)
+    /**
+     * POST request to add an item to the list. If the same item exists only increase quantity.
+     *
+     * @param id       the id of the item to add.
+     * @param quantity the quantity.
+     * @return the resulting item.
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/shoppingcart/items")
+    public CommerceItem commerceItem(
+            @RequestParam(value = "product_id", defaultValue = "1") final String id,
+            @RequestParam(value = "quantity", defaultValue = "1") final String quantity)
     {
         Log.getLogger().info("Post: " + id);
-        if(cart == null)
+        if (cart == null)
         {
             cart = new ShoppingCart();
         }

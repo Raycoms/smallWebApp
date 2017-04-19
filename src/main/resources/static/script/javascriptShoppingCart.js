@@ -4,8 +4,12 @@ $(document).ready(function()
     {
          $("button.del").on("click", function()
                 {
-                    console.log($(this).attrs('data-idx'));
-                    $.delete("shoppingcart/items{"+ $(this).data('id') +"}", "", function(){location.reload();});
+                    $.ajax(
+                    {
+                        url: "shoppingcart/items/"+ $(this).data('id'),
+                        type: 'DELETE'
+                    });
+                    location.reload();;
                 });
 
     });

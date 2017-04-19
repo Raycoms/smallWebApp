@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 public class CommerceItem
 {
     /**
-     *  The commerce item id, unique per commerce item, used to identify the
-     *  commerce item inside the shopping cart.
+     * The commerce item id, unique per commerce item, used to identify the
+     * commerce item inside the shopping cart.
      */
     private final String id;
 
@@ -40,7 +40,8 @@ public class CommerceItem
 
     /**
      * Constructor used by application to create commerceItem.
-     * @param id unique id of the item.
+     *
+     * @param id        unique id of the item.
      * @param productId unique id of the product.
      */
     public CommerceItem(final String id, final String productId)
@@ -82,6 +83,7 @@ public class CommerceItem
     /**
      * Increase amount by value i.
      * Calculate new amount and calculate new quantity.
+     *
      * @param i increased by this.
      */
     public void increaseAmountBy(final int i)
